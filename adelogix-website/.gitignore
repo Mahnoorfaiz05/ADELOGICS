@@ -1,0 +1,13 @@
+# Build outputs
+dist/
+dist-review/
+dist-portable/
+
+# Dependencies
+node_modules/
+
+# QA artifacts
+qa-shots/
+
+# OS
+.DS_Store
