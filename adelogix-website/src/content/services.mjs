@@ -428,6 +428,255 @@ export const services = [
       { q: 'Do you offer WordPress maintenance?', a: 'Yes. Maintenance can include core and plugin updates, backups, uptime checks and small content changes, depending on the plan agreed.' },
     ],
   },
+  {
+    slug: 'it-services',
+    name: 'IT Services',
+    short: 'Cloud infrastructure, DevOps and IT support that keep your systems running, secure and able to grow.',
+    category: 'it',
+    seoTitle: 'IT Services: Cloud, DevOps and Technical Support',
+    seoDescription: 'IT services from Adelogix: AWS and Google Cloud Platform infrastructure, DevOps, cloud deployment, infrastructure management and IT support for growing businesses.',
+    heroTitle: 'Cloud infrastructure and IT support built to scale.',
+    heroLead: 'We design, deploy and manage cloud infrastructure on AWS and Google Cloud Platform, with DevOps practices, monitoring and support so your systems stay available, secure and easy to change as you grow.',
+    challenges: [
+      {
+        title: 'Cloud costs keep climbing',
+        text: 'Resources are left running, environments are over-provisioned and nobody is reviewing the bill, so cloud spend grows every month without anyone noticing.',
+      },
+      {
+        title: 'Deployments are slow and risky',
+        text: 'Changes are applied by hand, mistakes happen during releases, and there is no reliable way to roll back when something goes wrong.',
+      },
+      {
+        title: 'No one owns the infrastructure',
+        text: 'Servers and cloud accounts were set up by someone who has moved on, there is no documentation, and the team is afraid to change anything.',
+      },
+      {
+        title: 'Support is reactive, not planned',
+        text: 'When a site goes down or a server slows down, there is nobody to call, and fixes happen only after users complain.',
+      },
+    ],
+    solutionTitle: 'Infrastructure your team can rely on',
+    solution: 'We build cloud infrastructure as code, deploy it through automated pipelines and monitor it around the clock. On AWS or Google Cloud Platform, we create environments that are secure by default, easy to reproduce and sized for your actual traffic. Then we keep them running with planned maintenance, security updates and support you can rely on.',
+    solutionPoints: [
+      'AWS and Google Cloud Platform infrastructure, configured and documented',
+      'DevOps pipelines for integration, delivery and deployment',
+      'Monitoring, alerts and uptime checks so issues are caught early',
+      'Scheduled maintenance, security patches and incident support',
+    ],
+    scope: [
+      'DevOps and cloud infrastructure',
+      'AWS cloud solutions',
+      'Google Cloud Platform (GCP) architecture',
+      'Cloud deployment and management',
+      'Infrastructure as code and configuration management',
+      'IT support and maintenance',
+      'Cloud optimization and scalability',
+      'Backups and disaster recovery',
+    ],
+    process: [
+      {
+        title: 'Discover',
+        text: 'We review your current infrastructure, traffic and reliability needs, and identify where cloud spend, deployment risk or support gaps are hurting the business.',
+      },
+      {
+        title: 'Plan',
+        text: 'We design the cloud environment, choose services and define deployment, backup and monitoring arrangements, with a scope and timeline you can plan around.',
+      },
+      {
+        title: 'Build',
+        text: 'Infrastructure is defined as code, pipelines are implemented and tested on a staging environment, and you see progress before anything touches production.',
+      },
+      {
+        title: 'Launch & Support',
+        text: 'We deploy, document access and handover, then provide agreed IT support, monitoring and maintenance as your systems grow.',
+      },
+    ],
+    tech: ['aws', 'docker', 'nodejs', 'postgresql'],
+    faqs: [
+      {
+        q: 'Do you work with AWS and Google Cloud Platform?',
+        a: 'Yes. We design and manage infrastructure on both AWS and Google Cloud Platform, and recommend the platform that fits your workload, team and budget.',
+      },
+      {
+        q: 'Can you take over infrastructure someone else built?',
+        a: 'Yes. We start with a review of your current cloud accounts, configuration and costs, then recommend improvements or a safe migration.',
+      },
+      {
+        q: 'What kind of support do you provide?',
+        a: 'Planned maintenance, security updates, monitoring and incident response, on terms agreed upfront so you know exactly what is covered.',
+      },
+      {
+        q: 'Will our systems be able to scale?',
+        a: 'Yes. Infrastructure is designed to handle growth, with autoscaling where it helps and regular reviews of capacity and cost.',
+      },
+    ],
+  },
+  {
+    slug: 'product-development',
+    name: 'Product Development',
+    short: 'End-to-end product development: from idea and design to build, testing and release.',
+    category: 'product',
+    seoTitle: 'Product Development Services',
+    seoDescription: 'Product development from Adelogix: software development, AI, chatbots, QA, user testing, product management, DevOps and UX design for new and existing products.',
+    heroTitle: 'Products designed, built and released properly.',
+    heroLead: 'We take products from concept to launch and beyond: software architecture, design, AI features, quality assurance and release management, all planned around your users and your business goals.',
+    challenges: [
+      {
+        title: 'An idea without a build plan',
+        text: 'The product concept is clear, but there is no specification, no roadmap and no agreement on what the first version should contain.',
+      },
+      {
+        title: 'Features ship without being tested',
+        text: 'Releases reach users with bugs, confusing workflows or missing features, because quality checks and real-user feedback were skipped.',
+      },
+      {
+        title: 'Teams build the wrong things',
+        text: 'Work starts before priorities are agreed, and development time is spent on features customers do not use.',
+      },
+      {
+        title: 'Releases are slow and stressful',
+        text: 'Code, testing and deployment are handled separately by different people, so every release takes longer than it should.',
+      },
+    ],
+    solutionTitle: 'One team for the whole product lifecycle',
+    solution: 'We take products from strategy through to release: research and design first, then development and quality assurance in stages, with product management keeping everything coordinated. Every feature is checked with real users and real testing before it reaches your customers.',
+    solutionPoints: [
+      'Product planning, strategy and roadmap definition',
+      'Software development tailored to your requirements',
+      'AI features, chatbots and intelligent automation',
+      'Quality assurance, user testing and bug reviews',
+      'UX design, user journeys and wireframes',
+      'CI/CD, cloud infrastructure and deployment automation',
+    ],
+    scope: [
+      'Software Development - custom software architecture and development, scalable and reliable solutions tailored to your business requirements.',
+      'AI Development - AI-powered applications, intelligent automation and AI integration into existing platforms.',
+      'Chatbot Development - conversational AI chatbots for customer support automation and business workflows.',
+      'QA and Review - software quality assurance, functional and performance testing, bug identification and quality reviews.',
+      'User Testing - user experience testing, usability evaluation and real-world product feedback.',
+      'Product Management - product planning and strategy, development lifecycle management, feature prioritization and coordination.',
+      'DevOps and Cloud - CI/CD pipeline implementation, cloud infrastructure, deployment automation and monitoring.',
+      'UX Design - user research, user journeys and wireframes for user-centred product experiences.',
+    ],
+    process: [
+      {
+        title: 'Discover',
+        text: 'We review your product idea, users and goals, then agree what the first version must do and what can wait.',
+      },
+      {
+        title: 'Plan',
+        text: 'Product managers define features, priorities and the development lifecycle, with designs and technical plans agreed before any code is written.',
+      },
+      {
+        title: 'Build',
+        text: 'Designers and developers work in stages with continuous testing, while QA and user testing validate each step with real people.',
+      },
+      {
+        title: 'Launch & Support',
+        text: 'We handle release, deployment automation and monitoring, then keep improving the product with you as feedback comes in.',
+      },
+    ],
+    tech: ['react', 'nodejs', 'postgresql', 'figma', 'openai', 'aws', 'docker'],
+    faqs: [
+      {
+        q: 'Can you build a whole product from scratch?',
+        a: 'Yes. We cover strategy, design, development, testing and release, so you have one team responsible for the complete product.',
+      },
+      {
+        q: 'Which of these services do we actually need?',
+        a: 'We work that out during planning. Some products need design and development only; others benefit from AI, QA and user testing from the start.',
+      },
+      {
+        q: 'Do you test with real users before launch?',
+        a: 'Yes. User testing and usability evaluation are part of our process, so the product is checked with the people who will use it.',
+      },
+      {
+        q: 'What happens after the first release?',
+        a: 'We continue with product management, development and support as agreed, prioritising the next features based on real usage.',
+      },
+    ],
+  },
+  {
+    slug: 'devops-cloud',
+    name: 'DevOps & Cloud',
+    short: 'DevOps, cloud infrastructure and support for systems that deploy safely and stay online.',
+    category: 'devops',
+    seoTitle: 'DevOps and Cloud Services',
+    seoDescription: 'DevOps and cloud services from Adelogix: CI/CD pipelines, AWS and GCP infrastructure, cloud management, deployment automation, monitoring and IT support.',
+    heroTitle: 'Systems that deploy themselves and stay online.',
+    heroLead: 'We automate the path from code to production with CI/CD pipelines, cloud infrastructure on AWS and Google Cloud Platform, and monitoring that catches problems before users do, supported by ongoing IT and cloud support.',
+    challenges: [
+      {
+        title: 'Releases take too long',
+        text: 'Every release is applied by hand, involves long checklists and needs several people to coordinate, so shipping even small changes takes days.',
+      },
+      {
+        title: 'Infrastructure is a black box',
+        text: 'One person knows how the servers are configured, there is no documentation, and any change feels like a risk.',
+      },
+      {
+        title: 'Problems arrive without warning',
+        text: 'There is no monitoring or alerting, so the team finds out about outages from users instead of from their own dashboards.',
+      },
+      {
+        title: 'Cloud bills keep growing',
+        text: 'Resources run when they are not needed, environments are over-sized, and nobody is reviewing usage or costs.',
+      },
+    ],
+    solutionTitle: 'Automated delivery, observable systems',
+    solution: 'We treat infrastructure as code, automate builds, tests and deployments with CI/CD pipelines, and add monitoring, logging and alerts across AWS and Google Cloud Platform. The result is faster, safer releases, systems your team can support and clear visibility into cost and performance.',
+    solutionPoints: [
+      'CI/CD pipeline implementation and deployment automation',
+      'Cloud infrastructure and management on AWS and GCP',
+      'Monitoring, alerts and uptime tracking',
+      'IT support and cloud support, planned and on call',
+    ],
+    scope: [
+      'DevOps services',
+      'Cloud infrastructure and management',
+      'Cloud support',
+      'IT support and maintenance',
+      'AWS and GCP infrastructure',
+      'Deployment and monitoring',
+    ],
+    process: [
+      {
+        title: 'Discover',
+        text: 'We review your current deployment process, cloud accounts and infrastructure, and identify where automation, monitoring or support would reduce risk.',
+      },
+      {
+        title: 'Plan',
+        text: 'We design the pipeline, environments and monitoring arrangement, choose AWS or GCP services, and agree a scope and timeline.',
+      },
+      {
+        title: 'Build',
+        text: 'Infrastructure is defined as code, CI/CD pipelines are implemented and tested, and deployments are automated and monitored on staging first.',
+      },
+      {
+        title: 'Launch & Support',
+        text: 'We go live with deployment and monitoring in place, then provide cloud support, IT support and maintenance as agreed.',
+      },
+    ],
+    tech: ['aws', 'docker', 'nodejs', 'postgresql'],
+    faqs: [
+      {
+        q: 'Which cloud platforms do you support?',
+        a: 'AWS and Google Cloud Platform. We recommend one based on your workload, existing accounts and the team that will maintain it.',
+      },
+      {
+        q: 'What is included in cloud support?',
+        a: 'Monitoring, incident response, security updates, cost reviews and help with changes, on terms agreed upfront.',
+      },
+      {
+        q: 'Can you automate our current deployment process?',
+        a: 'Yes. We review how releases happen today, then implement CI/CD pipelines so deployments are repeatable, safe and faster.',
+      },
+      {
+        q: 'Will you document the infrastructure?',
+        a: 'Yes. Everything is defined as code and documented, so your team is not dependent on one person to understand the environment.',
+      },
+    ],
+  },
 ];
 
 // Services page grouping (from the requirements document, section 7).
@@ -501,6 +750,51 @@ export const serviceCategories = [
       ['AI-Powered Application Development', 'ai-development-automation'],
       ['API Integration', 'ai-development-automation'],
       ['Third-Party Integrations', 'ai-development-automation'],
+    ],
+  },
+  {
+    id: 'it',
+    letter: 'F',
+    name: 'IT Services',
+    intro: 'Cloud infrastructure, DevOps practices and IT support that keep systems available, secure and able to grow.',
+    items: [
+      ['DevOps & Cloud Infrastructure', 'it-services'],
+      ['AWS Cloud Solutions', 'it-services'],
+      ['Google Cloud Platform (GCP)', 'it-services'],
+      ['Cloud Deployment & Management', 'it-services'],
+      ['Infrastructure Management', 'it-services'],
+      ['IT Support & Maintenance', 'it-services'],
+      ['Cloud Optimization & Scalability', 'it-services'],
+    ],
+  },
+  {
+    id: 'product',
+    letter: 'G',
+    name: 'Product Development',
+    intro: 'From product strategy and design to build, quality assurance and release: a complete product development team.',
+    items: [
+      ['Software Development', 'product-development'],
+      ['AI Development', 'product-development'],
+      ['Chatbot Development', 'product-development'],
+      ['QA & Review', 'product-development'],
+      ['User Testing', 'product-development'],
+      ['Product Management', 'product-development'],
+      ['DevOps & Cloud', 'product-development'],
+      ['UX Design', 'product-development'],
+    ],
+  },
+  {
+    id: 'devops',
+    letter: 'H',
+    name: 'DevOps & Cloud',
+    intro: 'CI/CD, cloud infrastructure, deployment automation and monitoring on AWS and Google Cloud Platform.',
+    items: [
+      ['DevOps Services', 'devops-cloud'],
+      ['Cloud Infrastructure & Management', 'devops-cloud'],
+      ['Cloud Support', 'devops-cloud'],
+      ['IT Support & Maintenance', 'devops-cloud'],
+      ['AWS & GCP Infrastructure', 'devops-cloud'],
+      ['Deployment & Monitoring', 'devops-cloud'],
     ],
   },
 ];

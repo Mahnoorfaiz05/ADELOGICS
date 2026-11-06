@@ -157,7 +157,7 @@ ${ctaSection(site, { title: 'Have a project in mind?', text: 'Tell us about your
 // ============================================================== SERVICES
 export function servicesPage(site) {
   const bySlug = Object.fromEntries(site.services.map((s) => [s.slug, s]));
-  const catIcon = { web: 'globe', mobile: 'mobile', design: 'pen', systems: 'boxes', ai: 'sparkle' };
+  const catIcon = { web: 'globe', mobile: 'mobile', design: 'pen', systems: 'boxes', ai: 'sparkle', it: 'cloud', product: 'blocks', devops: 'terminal' };
   const body = `
 ${pageHero({
   crumbs: [['Home', '/'], ['Services', '/services/']],
@@ -223,6 +223,9 @@ const CTA_NOUN = {
   'crm-development': 'a CRM that fits',
   'erp-cms-development': 'an ERP or CMS',
   'wordpress-development': 'a WordPress site',
+  'it-services': 'cloud infrastructure or DevOps support',
+  'product-development': 'a new product',
+  'devops-cloud': 'DevOps and cloud support',
 };
 
 export function servicePage(site, s) {
