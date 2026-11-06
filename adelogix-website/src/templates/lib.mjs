@@ -239,6 +239,9 @@ export const serviceVisualKind = {
   'crm-development': 'crm',
   'erp-cms-development': 'erp',
   'wordpress-development': 'wordpress',
+  'it-services': 'dashboard',
+  'product-development': 'saas',
+  'devops-cloud': 'dashboard',
 };
 
 // ---------------------------------------------------------- Line icons
@@ -297,4 +300,7 @@ export const serviceIcon = {
   'crm-development': 'users',
   'erp-cms-development': 'boxes',
   'wordpress-development': 'blocks',
+  'it-services': 'cloud',
+  'product-development': 'blocks',
+  'devops-cloud': 'terminal',
 };
