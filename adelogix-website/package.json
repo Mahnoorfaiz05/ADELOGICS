@@ -1,0 +1,20 @@
+{
+  "name": "adelogix-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Adelogix Software Technology company website. Static, dependency-free build.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:review": "node scripts/build.mjs --review",
+    "build:portable": "node scripts/build.mjs --review --portable --out dist-portable",
+    "serve": "node scripts/serve.mjs dist 4321",
+    "serve:review": "node scripts/serve.mjs dist-review 4322",
+    "qa": "node scripts/qa.mjs",
+    "assets:demo": "node scripts/demo-assets.mjs",
+    "og-image": "node scripts/og-image.mjs"
+  }
+}

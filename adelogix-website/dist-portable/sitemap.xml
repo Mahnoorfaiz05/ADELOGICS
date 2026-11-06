@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.adelogix.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.adelogix.com/about/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.adelogix.com/services/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.adelogix.com/services/web-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/mobile-app-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/custom-software-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/ui-ux-design/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/saas-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/ai-development-automation/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/crm-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/erp-cms-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/services/wordpress-development/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.adelogix.com/work/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.adelogix.com/contact/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.adelogix.com/privacy-policy/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.adelogix.com/terms/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
