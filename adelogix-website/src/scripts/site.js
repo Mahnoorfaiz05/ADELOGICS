@@ -400,4 +400,226 @@
       try { sessionStorage.setItem('review-flag-closed', '1'); } catch (e) { /* ignore */ }
     });
   }
+
+  /* ------------------------------------------------------- Chatbot */
+  (function () {
+    'use strict';
+
+    var root = document.documentElement;
+    var chatbot = document.querySelector('[data-chatbot]');
+    var launcher = document.querySelector('[data-chatbot-toggle]');
+    var windowEl = document.querySelector('[data-chatbot-window]');
+    var messagesEl = document.querySelector('[data-chatbot-messages]');
+    var suggestedEl = document.querySelector('[data-chatbot-suggested]');
+    var formEl = document.querySelector('[data-chatbot-form]');
+    var inputEl = document.querySelector('[data-chatbot-input]');
+    var sendBtn = document.querySelector('[data-chatbot-send]');
+    var newBtn = document.querySelector('[data-chatbot-new]');
+    var knowledgeEl = document.querySelector('[data-chatbot-knowledge]');
+
+    if (!chatbot || !launcher || !windowEl || !knowledgeEl) return;
+
+    // Load knowledge base embedded in the page
+    var knowledge = null;
+    try {
+      knowledge = JSON.parse(knowledgeEl.textContent);
+    } catch (e) {
+      return; // No knowledge base available
+    }
+
+    var faqEntries = knowledge.faqEntries || [];
+    var suggested = knowledge.suggestedQuestions || [];
+    var welcome = knowledge.welcomeMessage || { text: 'Hello! How can I help?' };
+
+    var isOpen = false;
+    var isTyping = false;
+
+    // Escape HTML for safe insertion
+    function esc(s) {
+      return String(s).replace(/[&<>\"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    // Match user message to best FAQ entry using keyword scoring
+    function findResponse(message) {
+      var normalized = (message || '').toLowerCase().trim();
+      if (!normalized) return faqEntries.find(function (e) { return e.id === 'fallback'; }) || {};
+
+      var best = faqEntries.find(function (e) { return e.id === 'fallback'; }) || {};
+      var bestScore = 0;
+
+      faqEntries.forEach(function (entry) {
+        if (entry.id === 'fallback') return;
+        var score = 0;
+        entry.patterns.forEach(function (pattern) {
+          if (normalized.indexOf(pattern.toLowerCase()) !== -1) {
+            score += pattern.length;
+          }
+        });
+        if (score > bestScore) {
+          bestScore = score;
+          best = entry;
+        }
+      });
+
+      return bestScore > 0 ? best : (faqEntries.find(function (e) { return e.id === 'fallback'; }) || {});
+    }
+
+    // Render a message bubble
+    function createMessage(text, isUser, links) {
+      var wrap = document.createElement('div');
+      wrap.className = 'chatbot__message' + (isUser ? ' chatbot__message--user' : ' chatbot__message--bot');
+
+      var avatar = document.createElement('div');
+      avatar.className = 'chatbot__avatar';
+      avatar.textContent = isUser ? 'A' : 'A';
+
+      var bubble = document.createElement('div');
+      bubble.className = 'chatbot__bubble';
+      bubble.innerHTML = esc(text);
+
+      if (links && links.length) {
+        var linksList = document.createElement('ul');
+        links.forEach(function (link) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = link.url;
+          a.textContent = link.text;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          li.appendChild(a);
+          linksList.appendChild(li);
+        });
+        bubble.appendChild(linksList);
+      }
+
+      wrap.appendChild(isUser ? bubble : avatar);
+      if (!isUser) wrap.appendChild(bubble);
+      if (isUser) wrap.appendChild(avatar);
+
+      return wrap;
+    }
+
+    // Show typing indicator
+    function showTyping() {
+      isTyping = true;
+      var typing = document.createElement('div');
+      typing.className = 'chatbot__typing';
+      typing.setAttribute('data-chatbot-typing', '');
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      messagesEl.appendChild(typing);
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      isTyping = false;
+      var typing = document.querySelector('[data-chatbot-typing]');
+      if (typing) typing.remove();
+    }
+
+    // Scroll messages to bottom
+    function scrollToBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    // Add suggested question chips
+    function renderSuggested() {
+      if (!suggested.length) return;
+      suggestedEl.innerHTML = '<p>Try asking:</p><div class="chatbot__chips"></div>';
+      var chipsWrap = suggestedEl.querySelector('.chatbot__chips');
+      suggested.forEach(function (q) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chatbot__chip';
+        chip.textContent = q;
+        chip.addEventListener('click', function () {
+          inputEl.value = q;
+          inputEl.focus();
+          formEl.dispatchEvent(new Event('submit'));
+        });
+        chipsWrap.appendChild(chip);
+      });
+    }
+
+    // Render welcome message
+    function renderWelcome() {
+      var msg = createMessage(welcome.text, false, welcome.links || []);
+      messagesEl.appendChild(msg);
+      scrollToBottom();
+    }
+
+    // Add bot response after delay
+    function respond(message) {
+      var entry = findResponse(message);
+      setTimeout(function () {
+        hideTyping();
+        var msg = createMessage(entry.response || 'I am not sure about that. Please contact the team.', false, entry.links || []);
+        messagesEl.appendChild(msg);
+        scrollToBottom();
+      }, 700);
+    }
+
+    // Toggle chat window
+    function setOpen(open) {
+      isOpen = open;
+      windowEl.classList.toggle('is-visible', open);
+      launcher.setAttribute('aria-expanded', String(open));
+      launcher.querySelector('.chatbot__launcher-text').textContent = open ? 'Close' : 'Chat';
+      if (open) {
+        launcher.querySelector('.chatbot__launcher-pulse').style.display = 'none';
+        inputEl.focus();
+        if (messagesEl.children.length === 0) {
+          renderSuggested();
+          renderWelcome();
+        }
+      }
+    }
+
+    // Reset to new conversation
+    function newConversation() {
+      messagesEl.innerHTML = '';
+      suggestedEl.innerHTML = '';
+      renderSuggested();
+      renderWelcome();
+      scrollToBottom();
+    }
+
+    // Events
+    launcher.addEventListener('click', function () { setOpen(!isOpen); });
+
+    newBtn.addEventListener('click', function () {
+      newConversation();
+      if (!isOpen) setOpen(true);
+    });
+
+    formEl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = (inputEl.value || '').trim();
+      if (!text || isTyping) return;
+
+      // User message
+      var userMsg = createMessage(text, true);
+      messagesEl.appendChild(userMsg);
+      inputEl.value = '';
+      scrollToBottom();
+
+      // Bot response
+      showTyping();
+      respond(text);
+    });
+
+    // Close when clicking outside on mobile
+    document.addEventListener('click', function (e) {
+      if (isOpen && !chatbot.contains(e.target)) {
+        // Only close if clicking far outside (not on launcher)
+        if (!launcher.contains(e.target) && !windowEl.contains(e.target)) {
+          setOpen(false);
+        }
+      }
+    });
+
+    // Start closed
+    setOpen(false);
+  })();
 })();
