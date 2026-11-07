@@ -1,0 +1,4 @@
+{
+  "buildCommand": "cd adelogix-website && node scripts/build.mjs",
+  "outputDirectory": "adelogix-website/dist"
+}
