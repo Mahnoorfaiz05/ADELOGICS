@@ -12,10 +12,10 @@ export default {
   siteUrl: process.env.SITE_URL || 'https://www.adelogix.com',
 
   contact: {
-    email: process.env.CONTACT_EMAIL || '',        // e.g. hello@yourdomain.com
-    phone: process.env.CONTACT_PHONE || '',        // international format, e.g. +44 20 1234 5678
-    whatsapp: process.env.CONTACT_WHATSAPP || '',  // digits only, e.g. 442012345678
-    location: process.env.CONTACT_LOCATION || '',  // e.g. "Lahore, Pakistan" or full address
+    email: process.env.CONTACT_EMAIL || 'Adelogixteam@gmail.com',        // e.g. hello@yourdomain.com
+    phone: process.env.CONTACT_PHONE || '+92 313 8711670',        // international format, e.g. +44 20 1234 5678
+    whatsapp: process.env.CONTACT_WHATSAPP || '923138711670',  // digits only, e.g. 442012345678
+    location: process.env.CONTACT_LOCATION || 'Commercial Area, Bahawalpur, Punjab, Pakistan',  // e.g. "Lahore, Pakistan" or full address
     hours: process.env.CONTACT_HOURS || '',        // e.g. "Monday to Friday, 9:00 to 18:00 PKT"
   },
 

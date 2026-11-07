@@ -104,6 +104,9 @@ function header(site, page, theme) {
 function footer(site) {
   const { config, services } = site;
   const c = config.contact;
+  const mapsUrl = c.location
+    ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.location)
+    : '';
   const socials = Object.entries({
     LinkedIn: config.social.linkedin, Instagram: config.social.instagram, Facebook: config.social.facebook,
     X: config.social.x, GitHub: config.social.github, Behance: config.social.behance, Dribbble: config.social.dribbble, Clutch: config.social.clutch,
@@ -112,7 +115,7 @@ function footer(site) {
     c.email && `<li><a href="mailto:${attr(c.email)}">${svgIcon('mail', 18)}${esc(c.email)}</a></li>`,
     c.phone && `<li><a href="tel:${attr(c.phone.replace(/[^\d+]/g, ''))}">${svgIcon('phone', 18)}${esc(c.phone)}</a></li>`,
     c.whatsapp && `<li><a href="https://wa.me/${attr(c.whatsapp)}" target="_blank" rel="noopener">${svgIcon('chat', 18)}WhatsApp</a></li>`,
-    c.location && `<li><span>${svgIcon('pin', 18)}${esc(c.location)}</span></li>`,
+    c.location && `<li><a href="${attr(mapsUrl)}" target="_blank" rel="noopener">${svgIcon('pin', 18)}${esc(c.location)}</a></li>`,
     config.bookingUrl && `<li><a href="${attr(config.bookingUrl)}" target="_blank" rel="noopener" data-track="booking_click">${svgIcon('calendar', 18)}Book a call</a></li>`,
   ].filter(Boolean);
   const year = new Date().getFullYear();
@@ -126,25 +129,35 @@ function footer(site) {
         <a class="btn btn--light" href="${u('/contact/')}" data-track="cta_footer">Discuss your project ${icon.arrow}</a>
       </div>
     </div>
-    <div class="footer-cols">
-      <div class="footer-col">
-        <h2>Company</h2>
-        <ul>${NAV.map((n) => `<li><a href="${u(n.href)}">${n.label}</a></li>`).join('')}</ul>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h2>Company</h2>
+          <ul>${NAV.map((n) => `<li><a href="${u(n.href)}">${n.label}</a></li>`).join('')}</ul>
+        </div>
+        <div class="footer-col footer-col--services">
+          <h2>Services</h2>
+          <ul>${services.map((s) => `<li><a href="${u(`/services/${s.slug}/`)}">${esc(s.name)}</a></li>`).join('')}</ul>
+        </div>
+        <div class="footer-col">
+          <h2>Get in touch</h2>
+          <ul class="footer-contact">
+            ${contactItems.join('')}
+            <li><a href="${u('/contact/#form')}">${svgIcon('doc', 18)}Send an enquiry</a></li>
+            ${site.review && !c.email ? '<li><span class="ph-badge">Email, phone and location needed</span></li>' : ''}
+          </ul>
+          ${socials.length ? `<ul class="footer-social">${socials.map(([k, v]) => `<li><a href="${attr(v)}" target="_blank" rel="noopener">${k}</a></li>`).join('')}</ul>` : ''}
+        </div>
+        <div class="footer-col footer-col--location">
+          <h2>Our Location</h2>
+          <a href="${attr(mapsUrl)}" target="_blank" rel="noopener" class="footer-map-link">
+            <div class="footer-map">
+              <span class="icon-badge icon-badge--soft">${svgIcon('pin', 20)}</span>
+              <span>${esc(c.location)}</span>
+              <span class="footer-map-text">Open in Google Maps ${svgIcon('chevronRight', 16)}</span>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="footer-col footer-col--services">
-        <h2>Services</h2>
-        <ul>${services.map((s) => `<li><a href="${u(`/services/${s.slug}/`)}">${esc(s.name)}</a></li>`).join('')}</ul>
-      </div>
-      <div class="footer-col">
-        <h2>Get in touch</h2>
-        <ul class="footer-contact">
-          ${contactItems.join('')}
-          <li><a href="${u('/contact/#form')}">${svgIcon('doc', 18)}Send an enquiry</a></li>
-          ${site.review && !c.email ? '<li><span class="ph-badge">Email, phone and location needed</span></li>' : ''}
-        </ul>
-        ${socials.length ? `<ul class="footer-social">${socials.map(([k, v]) => `<li><a href="${attr(v)}" target="_blank" rel="noopener">${k}</a></li>`).join('')}</ul>` : ''}
-      </div>
-    </div>
     <div class="footer-bottom">
       <span>&copy; ${year} ${esc(config.legalName)}. All rights reserved.</span>
       <ul>
