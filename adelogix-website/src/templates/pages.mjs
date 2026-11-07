@@ -229,7 +229,7 @@ const CTA_NOUN = {
 };
 
 export function servicePage(site, s) {
-  const related = site.projects.filter((p) => p.services.includes(s.slug)).slice(0, 3);
+  const related = site.projects.filter((p) => p.services.includes(s.slug));
   const others = site.services.filter((o) => o.slug !== s.slug);
   const chips = techChips(site, s.tech);
   const lead = related[0];
@@ -292,9 +292,9 @@ ${chips ? `<section class="section section--tight surface-paper" aria-labelledby
   </div>
 </section>` : ''}
 
-${related.length ? `<section class="section surface-paper-2" aria-labelledby="related-title">
+${related.length ? `<section class="section surface-paper-2" aria-labelledby="case-studies-title">
   <div class="container">
-    ${sectionHead({ eyebrow: 'Related projects', id: 'related-title', title: 'Related work.' })}
+    ${sectionHead({ eyebrow: 'Selected Case Studies', id: 'case-studies-title', title: 'Case studies for this service.' })}
     <div class="project-grid">${related.map((p) => projectCard(site, p)).join('')}</div>
   </div>
 </section>` : ''}
