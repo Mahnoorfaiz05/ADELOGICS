@@ -1160,14 +1160,14 @@
 }
 
 .chatbot__suggested {
-  padding: 16px 22px;
+  padding: 10px 20px;
   border-bottom: 1px solid var(--line);
   background: var(--card);
 }
 
 .chatbot__suggested p {
-  margin: 0 0 12px;
-  font-size: 0.75rem;
+  margin: 0 0 8px;
+  font-size: 0.7rem;
   font-family: var(--font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1177,17 +1177,17 @@
 .chatbot__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .chatbot__chip {
   display: inline-block;
-  padding: 8px 14px;
+  padding: 5px 11px;
   border-radius: var(--r-pill);
   border: 1px solid var(--line-strong);
   background: transparent;
   color: var(--text-2);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   cursor: pointer;
   transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
 }
@@ -1196,6 +1196,11 @@
   background: var(--brand-100);
   border-color: var(--brand-700);
   color: var(--brand-700);
+}
+
+/* Hidden state for suggestions — used after first interaction */
+.chatbot__suggested[data-suggestions-hidden] {
+  display: none;
 }
 
 .chatbot__input-area {
