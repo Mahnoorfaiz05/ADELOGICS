@@ -88,7 +88,7 @@ await writeFile(join(out, 'assets/site.css'), minifyCss(css));
 await cp(join(root, 'src/scripts/site.js'), join(out, 'assets/site.js'));
 await cp(join(root, 'src/assets/brand'), join(out, 'assets/brand'), { recursive: true });
 if (review) await cp(join(root, 'src/assets/demo'), join(out, 'assets/demo'), { recursive: true });
-for (const dir of ['work', 'clients', 'people', 'case-studies']) {
+for (const dir of ['work', 'clients', 'people', 'case-studies', 'videos']) {
   if (existsSync(join(root, 'src/assets', dir))) await cp(join(root, 'src/assets', dir), join(out, 'assets', dir), { recursive: true });
 }
 if (existsSync(join(root, 'src/assets/og-image.png'))) await cp(join(root, 'src/assets/og-image.png'), join(out, 'assets/og-image.png'));

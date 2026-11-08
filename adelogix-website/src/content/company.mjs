@@ -92,16 +92,12 @@ export const principles = [
   { title: 'Leave things documented', icon: 'doc', text: 'Code, decisions and access are documented, so your product is never a black box.' },
 ];
 
-// Hero media. Replace `src`/`poster` with the official company film when it
-// is ready (MP4, H.264, 16:10 or 16:9, ideally under 6 MB, no audio needed).
-// `demo: true` media is shown only in the review build; production falls back
-// to the illustrated system diagram until a real film is configured.
+// Hero media. Company film embedded as background video behind hero content.
+// MP4, H.264, 16:10 or 16:9, no audio needed. Plays muted, loops inline.
 export const heroMedia = {
-  demo: true,
-  src: '/assets/demo/hero/reel.mp4',
-  poster: '/assets/demo/hero/poster.webp',
-  label: 'Demo reel',
-  note: 'Temporary demo reel built from demo project visuals. Replace with the Adelogix company film.',
+  src: '/assets/videos/hero-background.mp4',
+  poster: '/assets/videos/hero-background.mp4',
+  label: 'Adelogix company film',
 };
 
 // ---------------------------------------------------------------------------

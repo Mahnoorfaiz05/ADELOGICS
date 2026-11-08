@@ -60,15 +60,12 @@ export function heroMedia(site) {
   if (!m) {
     return `<div class="hero-media hero-media--diagram">${systemMap()}</div>`;
   }
-  return `<figure class="hero-media" data-hero-media>
-    <video class="hero-video" muted loop playsinline preload="metadata" controls poster="${u(m.poster)}" data-hero-video aria-label="Short reel showing the kinds of software Adelogix builds">
+  return `<div class="hero-background" data-hero-media>
+    <video class="hero-background-video" muted loop playsinline preload="auto" poster="${u(m.poster)}" aria-label="${esc(m.label || 'Hero background video')}">
       <source src="${u(m.src)}" type="video/mp4">
     </video>
-    <figcaption class="hero-media__bar">
-      ${m.demo ? `<span class="ph-badge" title="${attr(m.note || '')}">${esc(m.label)}</span>` : '<span class="hero-media__label">Company film</span>'}
-      <button class="media-toggle" type="button" data-video-toggle hidden aria-label="Pause video">${svgIcon('pause', 18, 'icon icon-pause')}${svgIcon('play', 18, 'icon icon-play')}</button>
-    </figcaption>
-  </figure>`;
+    <div class="hero-background-overlay" aria-hidden="true"></div>
+  </div>`;
 }
 
 // ---------------------------------------------------------------- Clients

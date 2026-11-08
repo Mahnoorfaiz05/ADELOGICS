@@ -17,6 +17,7 @@ export function homePage(site) {
   ];
   const body = `
 <section class="hero surface-ink" data-nav-dark aria-labelledby="hero-title">
+  <div class="hero__background">${heroMedia(site)}</div>
   <div class="aura" aria-hidden="true"></div>
   <div class="dot-grid" aria-hidden="true"></div>
   <div class="container hero__grid">
@@ -36,7 +37,7 @@ export function homePage(site) {
         <li>${svgIcon('tick', 16)}Support after launch</li>
       </ul>
     </div>
-    <div class="hero__media">${heroMedia(site)}</div>
+    <div class="hero__media" aria-hidden="true"></div>
   </div>
   <div class="container">
     <ul class="capability-strip" aria-label="What we build">
