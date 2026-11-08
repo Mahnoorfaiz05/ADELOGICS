@@ -37,7 +37,7 @@ export function homePage(site) {
         <li>${svgIcon('tick', 16)}Support after launch</li>
       </ul>
     </div>
-    <div class="hero__media" aria-hidden="true"></div>
+    <div class="hero__media">${systemMap()}</div>
   </div>
   <div class="container">
     <ul class="capability-strip" aria-label="What we build">
