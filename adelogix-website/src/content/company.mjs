@@ -92,12 +92,11 @@ export const principles = [
   { title: 'Leave things documented', icon: 'doc', text: 'Code, decisions and access are documented, so your product is never a black box.' },
 ];
 
-// Hero media — background video for the homepage hero section.
-// MP4, H.264, no audio needed. Poster image shown while loading or when
-// autoplay is restricted (reduced motion, mobile data saver, etc.).
+// Hero media. Company film embedded as background video behind hero content.
+// MP4, H.264, 16:10 or 16:9, no audio needed. Plays muted, loops inline.
 export const heroMedia = {
   src: '/assets/videos/hero-background.mp4',
-  poster: '/assets/demo/hero/poster.webp',
+  poster: '/assets/videos/hero-background.mp4',
   label: 'Adelogix company film',
 };
 
