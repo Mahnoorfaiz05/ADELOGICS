@@ -136,17 +136,17 @@ export function projectCard(site, p, { size = 'md', headingTag = 'h3', imageInde
 
 export function featuredWork(site) {
   if (!site.projects.length) return '';
-  const [first, ...rest] = site.projects;
-  return `<section class="section surface-paper-2" aria-labelledby="work-title">
+  const realProjects = site.projects.filter((p) => !p.demo).slice(0, 3);
+  if (!realProjects.length) return '';
+  return `<section class="section surface-paper-2 section--tight" aria-labelledby="work-title">
   <div class="container">
     ${sectionHead({
       eyebrow: 'Selected work', id: 'work-title',
       title: 'Software we have shaped around real operations.',
-      action: `<a class="btn btn--outline" href="${u('/work/')}" data-track="cta_view_projects">View all projects ${icon.arrow}</a>`,
+      action: `<a class="btn btn--light" href="${u('/work/')}" data-track="cta_view_projects">View all projects ${icon.arrow}</a>`,
     })}
-    <div class="work-bento">
-      ${projectCard(site, first, { size: 'lg' })}
-      <div class="work-bento__side">${rest.slice(0, 2).map((p) => projectCard(site, p, { size: 'sm' })).join('')}</div>
+    <div class="work-grid">
+      ${realProjects.map((p) => projectCard(site, p, { size: 'md' })).join('')}
     </div>
   </div>
 </section>`;
@@ -202,7 +202,7 @@ export function whySection(site, { title = 'Why teams choose to work with us.' }
 
 // ------------------------------------------------------------ Process
 export function processSection(steps, { title = 'From first conversation to launch.', intro, id = 'process', eyebrow = 'Our process' } = {}) {
-  return `<section class="section section--inset" id="${id}" aria-labelledby="${id}-title">
+  return `<section class="section section--tight" id="${id}" aria-labelledby="${id}-title">
   <div class="process-panel surface-ink" data-nav-dark>
     <div class="aura aura--top" aria-hidden="true"></div>
     <div class="container">
