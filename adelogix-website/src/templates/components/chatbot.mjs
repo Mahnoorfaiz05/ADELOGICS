@@ -9,7 +9,7 @@ export function renderChatbot(knowledge) {
     suggestedQuestions,
     welcomeMessage,
     projectSummaries,
-  }).replace(/"/g, '&quot;');
+  });
 
   return `
 <div class="chatbot" data-chatbot>
@@ -59,4 +59,5 @@ export function renderChatbot(knowledge) {
 </div>
 <script type="application/json" data-chatbot-knowledge>${knowledgeJson}</script>
 `;
+
 }
