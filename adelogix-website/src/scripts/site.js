@@ -564,6 +564,7 @@
     function setOpen(open) {
       isOpen = open;
       windowEl.classList.toggle('is-visible', open);
+      windowEl.toggleAttribute('hidden', !open);
       launcher.setAttribute('aria-expanded', String(open));
       launcher.querySelector('.chatbot__launcher-text').textContent = open ? 'Close' : 'Chat';
       if (open) {
