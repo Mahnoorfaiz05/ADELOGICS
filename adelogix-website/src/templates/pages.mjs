@@ -48,7 +48,7 @@ export function homePage(site) {
 
 ${clientsStrip(site)}
 
-<section class="section surface-paper" aria-labelledby="intro-title">
+<section class="section surface-paper section--flush-top" aria-labelledby="intro-title">
   <div class="container about-split">
     <div class="about-split__copy" data-reveal>
       <p class="eyebrow"><span class="node" aria-hidden="true"></span>About Adelogix</p>

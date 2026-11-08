@@ -136,8 +136,9 @@ export function projectCard(site, p, { size = 'md', headingTag = 'h3', imageInde
 
 export function featuredWork(site) {
   if (!site.projects.length) return '';
-  const [first, ...rest] = site.projects;
-  return `<section class="section surface-paper-2" aria-labelledby="work-title">
+  const realProjects = site.projects.filter((p) => !p.demo).slice(0, 3);
+  if (!realProjects.length) return '';
+  return `<section class="section surface-paper-2 section--tight" aria-labelledby="work-title">
   <div class="container">
     ${sectionHead({
       eyebrow: 'Selected work', id: 'work-title',
@@ -145,8 +146,7 @@ export function featuredWork(site) {
       action: `<a class="btn btn--light" href="${u('/work/')}" data-track="cta_view_projects">View all projects ${icon.arrow}</a>`,
     })}
     <div class="work-grid">
-      ${projectCard(site, first, { size: 'md' })}
-      ${rest.slice(0, 2).map((p) => projectCard(site, p, { size: 'md' })).join('')}
+      ${realProjects.map((p) => projectCard(site, p, { size: 'md' })).join('')}
     </div>
   </div>
 </section>`;

@@ -282,12 +282,12 @@ body.menu-open .logo-on-dark { opacity: 1; }
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
-  row-gap: 20px;
+  row-gap: 16px;
   align-items: end;
-  margin-bottom: clamp(32px, 4vw, 60px);
+  margin-bottom: clamp(28px, 4vw, 56px);
 }
-.section-head__main { grid-column: 1 / span 7; display: grid; gap: 20px; }
-.section-head__side { grid-column: 9 / span 4; display: grid; gap: 24px; justify-items: start; }
+.section-head__main { grid-column: 1 / span 7; display: grid; gap: 10px; }
+.section-head__side { grid-column: 9 / span 4; display: grid; gap: 10px; justify-items: start; }
 .section-head__side .lead { font-size: 1.0625rem; }
 .section-head--stack .section-head__main { grid-column: 1 / span 9; }
 .section-head--stack .section-head__side { grid-column: 1 / span 6; }
