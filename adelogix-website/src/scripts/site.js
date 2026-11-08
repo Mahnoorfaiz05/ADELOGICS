@@ -532,23 +532,34 @@
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    // Add suggested question chips
+    // Add suggested question chips — show only 2–3 initially to keep
+    // the conversation area as the primary focus
     function renderSuggested() {
       if (!suggested.length) return;
       suggestedEl.innerHTML = '<p>Try asking:</p><div class="chatbot__chips"></div>';
       var chipsWrap = suggestedEl.querySelector('.chatbot__chips');
-      suggested.forEach(function (q) {
-        var chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'chatbot__chip';
-        chip.textContent = q;
-        chip.addEventListener('click', function () {
-          inputEl.value = q;
-          inputEl.focus();
-          formEl.dispatchEvent(new Event('submit'));
-        });
-        chipsWrap.appendChild(chip);
-      });
+      var limit = Math.min(suggested.length, 3);
+      for (var i = 0; i < limit; i++) {
+        (function (q) {
+          var chip = document.createElement('button');
+          chip.type = 'button';
+          chip.className = 'chatbot__chip';
+          chip.textContent = q;
+          chip.addEventListener('click', function () {
+            inputEl.value = q;
+            inputEl.focus();
+            hideSuggestions();
+            formEl.dispatchEvent(new Event('submit'));
+          });
+          chipsWrap.appendChild(chip);
+        })(suggested[i]);
+      }
+      suggestedEl.removeAttribute('data-suggestions-hidden');
+    }
+
+    // Hide the suggestions section after first user interaction
+    function hideSuggestions() {
+      suggestedEl.setAttribute('data-suggestions-hidden', '');
     }
 
     // Render welcome message
@@ -607,6 +618,9 @@
       e.preventDefault();
       var text = (inputEl.value || '').trim();
       if (!text || isTyping) return;
+
+      // Hide suggestions once the user starts typing their own message
+      hideSuggestions();
 
       // User message
       var userMsg = createMessage(text, true);
