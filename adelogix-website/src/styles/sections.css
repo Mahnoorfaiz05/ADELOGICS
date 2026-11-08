@@ -108,17 +108,50 @@
 }
 .hero__grid {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
   row-gap: 48px;
   align-items: center;
 }
+
+/* Hero background video — full-width, behind all content */
+.hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.hero-background-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-background-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(14 11 24 / 0.30) 0%,
+    rgb(14 11 24 / 0.50) 50%,
+    rgb(14 11 24 / 0.70) 100%
+  );
+  pointer-events: none;
+}
+
 .hero__copy { grid-column: 1 / span 6; display: grid; gap: 26px; justify-items: start; }
 .hero__copy .display { font-size: clamp(2.75rem, 1.2rem + 4.6vw, 5.5rem); max-width: 11.5ch; }
 .hero__copy .lead { color: var(--text-inverse-2); max-width: 48ch; }
-.hero__points { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.875rem; color: var(--text-inverse-2); }
-.hero__points li { display: inline-flex; align-items: center; gap: 8px; }
+.hero__points { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.9375rem; color: var(--text-inverse-2); }
+.hero__points li { display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px; border: 1px solid rgb(255 255 255 / 0.15); border-radius: var(--r-pill); background: rgb(255 255 255 / 0.04); }
 .hero__points .icon { color: var(--brand-300); }
 .hero__media { grid-column: 7 / span 6; }
 
@@ -1287,4 +1320,8 @@
   .chatbot__launcher-pulse { animation: none; opacity: 0.5; }
   .chatbot__window { transition: none; }
   .chatbot__typing span { animation: none; opacity: 0.6; }
+
+  /* Hide background video, show solid fallback */
+  .hero-background-video { display: none; }
+  .hero__background { background: var(--ink-800); }
 }
