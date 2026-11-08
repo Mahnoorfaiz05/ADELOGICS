@@ -37,7 +37,7 @@ export function homePage(site) {
         <li>${svgIcon('tick', 16)}Support after launch</li>
       </ul>
     </div>
-    <div class="hero__media" aria-hidden="true"></div>
+    <div class="hero__media">${systemMap()}</div>
   </div>
   <div class="container">
     <ul class="capability-strip" aria-label="What we build">
@@ -48,7 +48,7 @@ export function homePage(site) {
 
 ${clientsStrip(site)}
 
-<section class="section surface-paper" aria-labelledby="intro-title">
+<section class="section surface-paper section--flush-top" aria-labelledby="intro-title">
   <div class="container about-split">
     <div class="about-split__copy" data-reveal>
       <p class="eyebrow"><span class="node" aria-hidden="true"></span>About Adelogix</p>
