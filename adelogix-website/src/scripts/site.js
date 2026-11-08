@@ -325,17 +325,26 @@
         return;
       }
 
+      // Set dynamic Reply-To for FormSubmit using the visitor's email
+      var replyToField = form.querySelector('input[name="_replyto"]');
+      var emailField = form.querySelector('input[name="email"]');
+      if (replyToField && emailField) {
+        replyToField.value = emailField.value;
+      }
+
+      var formData = new FormData(form);
+      formData.append('page', location.href);
+      formData.append('elapsed_ms', Date.now() - started);
+
       var data = {};
-      new FormData(form).forEach(function (value, key) { data[key] = value; });
-      data.page = location.href;
-      data.elapsed_ms = Date.now() - started;
+      formData.forEach(function (value, key) { data[key] = value; });
 
       submit.classList.add('is-loading');
       submit.setAttribute('aria-disabled', 'true');
       fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(data),
+        headers: { 'Accept': 'application/json' },
+        body: formData,
       }).then(function (res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         var firstName = String(data.name || '').trim().split(/\s+/)[0];

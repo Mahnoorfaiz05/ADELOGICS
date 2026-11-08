@@ -538,6 +538,9 @@ export function contactPage(site) {
         </fieldset>
         <div class="field" data-phone-field hidden><label for="f-phone">Phone / WhatsApp number <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="e-phone" placeholder="+44 20 1234 5678"><span class="field-error" id="e-phone" role="alert"></span></div>
         <div class="hp-field" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <!-- FormSubmit configuration -->
+        <input type="hidden" name="_subject" value="New Project Inquiry – ADELOGIX Website">
+        <input type="hidden" name="_replyto" id="f-replyto" value="">
         <div class="form-status" data-form-status role="status" aria-live="polite"></div>
         <div class="form-footer">
           <p>We use these details only to respond to your enquiry. See our <a href="${u('/privacy-policy/')}">Privacy Policy</a>.</p>

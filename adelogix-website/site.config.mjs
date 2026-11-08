@@ -22,10 +22,11 @@ export default {
   // Meeting booking page (Calendly, Cal.com, Google Calendar booking, etc.)
   bookingUrl: process.env.BOOKING_URL || '',
 
-  // Where the contact form POSTs JSON. Use the bundled function at
-  // functions/contact.mjs (deployed at /api/contact) or any form provider
-  // that accepts JSON (Formspree, Web3Forms, Basin...).
-  formEndpoint: process.env.FORM_ENDPOINT || '',
+  // Where the contact form POSTs. Use FormSubmit (formsubmit.co) for
+  // email delivery without a backend, or any form provider that accepts
+  // form-encoded data (Formspree, Web3Forms, Basin...).
+  // Set FORM_ENDPOINT env var to override in production.
+  formEndpoint: process.env.FORM_ENDPOINT || 'https://formsubmit.co/Adelogixteam@gmail.com',
 
   // Google Analytics 4 measurement ID (G-XXXXXXX). Loads only after consent.
   ga4Id: process.env.GA4_ID || '',
