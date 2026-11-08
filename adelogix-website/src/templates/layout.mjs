@@ -1,4 +1,6 @@
 import { esc, attr, u, icon, svgIcon } from './lib.mjs';
+import { renderChatbot } from './components/chatbot.mjs';
+import * as chatbotKnowledge from '../content/chatbot-knowledge.mjs';
 
 const NAV = [
   { href: '/', label: 'Home' },
@@ -67,6 +69,7 @@ ${page.body}
 ${footer(site)}
 ${consentBanner(site)}
 ${site.review ? reviewFlag() : ''}
+${renderChatbot(chatbotKnowledge)}
 </body>
 </html>
 `;

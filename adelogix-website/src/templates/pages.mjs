@@ -229,7 +229,7 @@ const CTA_NOUN = {
 };
 
 export function servicePage(site, s) {
-  const related = site.projects.filter((p) => p.services.includes(s.slug)).slice(0, 3);
+  const related = site.projects.filter((p) => p.services.includes(s.slug));
   const others = site.services.filter((o) => o.slug !== s.slug);
   const chips = techChips(site, s.tech);
   const lead = related[0];
@@ -292,9 +292,9 @@ ${chips ? `<section class="section section--tight surface-paper" aria-labelledby
   </div>
 </section>` : ''}
 
-${related.length ? `<section class="section surface-paper-2" aria-labelledby="related-title">
+${related.length ? `<section class="section surface-paper-2" aria-labelledby="case-studies-title">
   <div class="container">
-    ${sectionHead({ eyebrow: 'Related projects', id: 'related-title', title: 'Related work.' })}
+    ${sectionHead({ eyebrow: 'Selected Case Studies', id: 'case-studies-title', title: 'Case studies for this service.' })}
     <div class="project-grid">${related.map((p) => projectCard(site, p)).join('')}</div>
   </div>
 </section>` : ''}
@@ -538,6 +538,9 @@ export function contactPage(site) {
         </fieldset>
         <div class="field" data-phone-field hidden><label for="f-phone">Phone / WhatsApp number <span class="req" aria-hidden="true">*</span></label><input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="e-phone" placeholder="+44 20 1234 5678"><span class="field-error" id="e-phone" role="alert"></span></div>
         <div class="hp-field" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <!-- FormSubmit configuration -->
+        <input type="hidden" name="_subject" value="New Project Inquiry – ADELOGIX Website">
+        <input type="hidden" name="_replyto" id="f-replyto" value="">
         <div class="form-status" data-form-status role="status" aria-live="polite"></div>
         <div class="form-footer">
           <p>We use these details only to respond to your enquiry. See our <a href="${u('/privacy-policy/')}">Privacy Policy</a>.</p>

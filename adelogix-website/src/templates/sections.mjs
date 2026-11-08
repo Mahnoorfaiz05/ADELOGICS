@@ -8,7 +8,7 @@ export const txt = (s) => esc(s);
 export function workImg(p, index = 0, { eager = false, sizes = '(min-width: 900px) 50vw, 100vw', cls = '' } = {}) {
   const img = p.images && p.images[index];
   if (!img) return visual(p.visual || 'web');
-  const base = p.demo ? `/assets/demo/work/${p.slug}/` : `/assets/work/${p.slug}/`;
+  const base = p.demo ? `/assets/demo/work/${p.slug}/` : `/assets/${p.imageDir || 'work'}/${p.slug}/`;
   return `<img class="${cls}" src="${u(base + img.file)}" alt="${attr(img.alt || '')}" width="1600" height="1000" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" sizes="${sizes}">`;
 }
 
