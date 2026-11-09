@@ -169,12 +169,6 @@ ${pageHero({
   aside: `<nav class="category-jump card" aria-label="Service groups">${site.serviceCategories.map((c) => `<a href="#${c.id}"><span class="icon-badge icon-badge--soft">${svgIcon(catIcon[c.id])}</span><span><strong>${esc(c.name)}</strong><small>${c.items.length} services</small></span>${svgIcon('chevronDown', 18)}</a>`).join('')}</nav>`,
 })}
 
-<section class="section surface-paper section--flush-top" aria-label="Core services">
-  <div class="container">
-    <ul class="service-grid" role="list">${site.services.map((s) => `<li data-reveal>${serviceCard(s)}</li>`).join('')}</ul>
-  </div>
-</section>
-
 <section class="section surface-paper-2" aria-labelledby="groups-title">
   <div class="container">
     ${sectionHead({ eyebrow: 'Everything we offer', id: 'groups-title', title: 'Services by group.', intro: 'Related services are grouped together. Each item links to the page that covers it in detail.' })}
@@ -328,6 +322,55 @@ ${ctaSection(site, { title: `Thinking about ${CTA_NOUN[s.slug] || 'a new project
 // ================================================================== WORK
 // Rows of two large cards or three medium cards, chosen so no row is left
 // with a single orphan card.
+// ==================================================== WORK HERO CONSTELLATION
+// An interactive "project constellation" for the top of the Our Work page.
+// Built from the site's real case studies (never invented project names) and
+// drawn with inline SVG + CSS only, so it costs no extra requests or libs.
+// Three satellites orbit a central hub; the whole cluster tilts with the
+// pointer, and each satellite is a real link to its case study.
+export function workConstellation(site) {
+  const projects = (site.projects || []).filter((p) => !p.demo).slice(0, 3);
+  if (!projects.length) return '';
+  const meta = [
+    { icon: 'mobile', cls: 'wc-node--a' },
+    { icon: 'globe', cls: 'wc-node--b' },
+    { icon: 'systems', cls: 'wc-node--c' },
+  ];
+  const nodes = projects.map((p, i) => `<a class="wc-node ${meta[i].cls}" href="${u(`/work/${p.slug}/`)}" style="--wc-accent:${attr(p.accent || 'var(--brand-500)')};--wc-i:${i}">
+        <span class="wc-node__icon">${svgIcon(meta[i].icon, 20)}</span>
+        <span class="wc-node__text"><strong>${esc(p.name)}</strong><small>${esc(p.category)}</small></span>
+      </a>`).join('');
+  const label = projects.map((p) => p.name).join(', ');
+  return `<div class="work-hero" data-work-hero>
+  <div class="work-hero__tilt" data-work-tilt>
+    <svg class="work-hero__lines" viewBox="0 0 440 440" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="wc-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--brand-300)" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="var(--brand-300)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle class="wc-halo" cx="220" cy="220" r="196" fill="url(#wc-glow)"/>
+      <circle class="wc-orbit" cx="220" cy="220" r="150"/>
+      <circle class="wc-orbit wc-orbit--2" cx="220" cy="220" r="108"/>
+      <path class="wc-link" d="M220,220 L220,74" />
+      <path class="wc-link" d="M220,220 L346,320" />
+      <path class="wc-link" d="M220,220 L94,320" />
+      <circle class="wc-spark" r="3">
+        <animateMotion dur="9s" repeatCount="indefinite" path="M220,220 L220,74 L220,220 L346,320 L220,220 L94,320 L220,220"/>
+      </circle>
+    </svg>
+    <div class="work-hero__hub">
+      <span class="wc-hub__core">${svgIcon('blocks', 26)}</span>
+      <span class="wc-hub__label">${projects.length} live case<br>studies</span>
+    </div>
+    ${nodes}
+  </div>
+  <p class="work-hero__hint"><span class="wc-hint__dot" aria-hidden="true"></span>Hover or tap a project to open its case study</p>
+  <span class="sr-only">Featured projects: ${esc(label)}</span>
+</div>`;
+}
+
 function workRows(n) {
   if (n <= 2) return Array(n).fill('lg');
   if (n === 3) return Array(3).fill('md');
@@ -353,6 +396,7 @@ ${pageHero({
   title: 'Our work.',
   lead: 'Projects explained the way clients experience them: the problem, the approach and what changed afterwards.',
   actions: anyDemo ? demoBadge(true, 'Demo projects for layout review: replace with real case studies') : '',
+  aside: workConstellation(site),
 })}
 
 ${projects.length ? `

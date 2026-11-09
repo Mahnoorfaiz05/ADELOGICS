@@ -339,6 +339,161 @@
   .work-grid { grid-template-columns: 1fr; }
 }
 
+/* ==========================================================================
+   Our Work — interactive project constellation (hero aside)
+   Pure CSS/SVG: no libraries, no extra requests. Motion is subtle and only
+   decorative; every node is a normal link that works without JavaScript.
+   ========================================================================== */
+
+.work-hero { position: relative; display: grid; justify-items: center; gap: 10px; }
+
+.work-hero__tilt {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transition: transform 420ms var(--ease);
+  will-change: transform;
+}
+
+/* Counter-rotate the <html> class so reduced-motion users get a still frame */
+.work-hero__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.wc-halo { opacity: 0.9; animation: wc-breathe 9s var(--ease-in-out) infinite; }
+.wc-orbit { fill: none; stroke: var(--brand-200); stroke-width: 1; stroke-dasharray: 3 7; opacity: 0.75; }
+.wc-orbit--2 { stroke-dasharray: 2 9; opacity: 0.45; }
+.wc-link { fill: none; stroke: var(--brand-200); stroke-width: 1.25; opacity: 0.55; }
+.wc-spark { fill: var(--brand-500); opacity: 0.85; }
+
+@keyframes wc-breathe {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.97); }
+}
+
+/* ---- hub ---- */
+.work-hero__hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  pointer-events: none;
+}
+.wc-hub__core {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--brand-gradient);
+  box-shadow: 0 12px 34px rgb(63 50 130 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.28);
+}
+.wc-hub__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* ---- satellite nodes (real links) ---- */
+.wc-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: inset 0 0 0 1px var(--line), 0 10px 26px -12px rgb(20 16 40 / 0.28);
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  transition: transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease);
+  animation: wc-float 7s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--wc-i) * -1.5s);
+}
+.wc-node__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: var(--r-sm);
+  color: var(--wc-accent);
+  background: color-mix(in srgb, var(--wc-accent) 12%, transparent);
+  transition: background-color var(--t-base) var(--ease), color var(--t-base) var(--ease);
+}
+.wc-node__text { display: grid; gap: 1px; }
+.wc-node__text strong { font-size: 0.875rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+.wc-node__text small { font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3); }
+.wc-node:hover, .wc-node:focus-visible { box-shadow: inset 0 0 0 1px var(--brand-300), 0 18px 34px -14px rgb(20 16 40 / 0.34); }
+.wc-node:hover .wc-node__icon, .wc-node:focus-visible .wc-node__icon { color: #fff; background: var(--wc-accent); }
+.wc-node:focus-visible { outline: 2px solid var(--brand-500); outline-offset: 3px; }
+
+/* Orbit positions (percentages of the square stage) */
+.wc-node--a { left: 50%;  top: 16%; }
+.wc-node--b { left: 72%;  top: 74%; }
+.wc-node--c { left: 28%;  top: 74%; }
+
+@keyframes wc-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -7px; }
+}
+
+.work-hero__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.wc-hint__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-500); box-shadow: 0 0 0 3px rgb(106 66 160 / 0.16); }
+
+/* Tablet: keep the side-by-side composition but scale the stage down */
+@media (max-width: 1099px) {
+  .page-hero__aside { justify-self: center; }
+  .work-hero__tilt { width: min(100%, 440px); }
+  /* Stacked layout has the full width, so widen the base spread slightly and
+     drop the hub label to remove any chance of overlap. */
+  .wc-node--b { left: 74%; }
+  .wc-node--c { left: 26%; }
+  .wc-hub__label { display: none; }
+}
+
+/* Mobile: tighter nodes, less float, smaller hub */
+@media (max-width: 639px) {
+  .work-hero { gap: 14px; }
+  .work-hero__tilt { width: min(100%, 320px); }
+  .wc-hub__core { width: 56px; height: 56px; }
+  .wc-hub__core .icon { width: 22px; height: 22px; }
+  .wc-hub__label { font-size: 0.625rem; }
+  .wc-node { padding: 8px 11px 8px 8px; gap: 8px; }
+  .wc-node__icon { width: 30px; height: 30px; border-radius: var(--r-xs); }
+  .wc-node__text strong { font-size: 0.8125rem; }
+  .wc-node__text small { display: none; }
+  .wc-node--a { top: 13%; }
+  .wc-node--b { left: 70%; top: 79%; }
+  .wc-node--c { left: 30%; top: 79%; }
+}
+
+/* Accessibility: honour reduced motion — no float, no breathe, no tilt */
+@media (prefers-reduced-motion: reduce) {
+  .work-hero__tilt { transform: none !important; }
+  .wc-node { animation: none; }
+  .wc-halo { animation: none; }
+  .wc-spark { display: none; }
+}
+
 .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(36px, 4vw, 48px) var(--gap); }
 .project-grid--work { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .project-grid--work > .project-card { grid-column: span 2; }
