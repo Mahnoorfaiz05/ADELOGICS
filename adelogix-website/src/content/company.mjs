@@ -96,7 +96,7 @@ export const principles = [
 // MP4, H.264, 16:10 or 16:9, no audio needed. Plays muted, loops inline.
 export const heroMedia = {
   src: '/assets/videos/hero-background.mp4',
-  poster: '/assets/videos/hero-background.mp4',
+  poster: '/assets/demo/hero/poster.webp',
   label: 'Adelogix company film',
 };
 

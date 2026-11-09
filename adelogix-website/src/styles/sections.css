@@ -375,13 +375,18 @@
 .tech-group dt::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--brand-700); box-shadow: 0 0 12px var(--brand-700); }
 .tech-group dd { margin: 0; }
 .chip-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
-.chip-list li { display: inline-block; padding: 6px 14px; border-radius: var(--r-pill); border: 1px solid var(--line-strong); background: var(--paper-2); color: var(--text-2); font-size: 0.8125rem; font-weight: 500; transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
-.chip-list li:hover { background: var(--brand-100); border-color: var(--brand-700); color: var(--brand-700); }
+.chip-list li { display: inline-block; padding: 6px 14px; border-radius: var(--r-pill); border: 1px solid var(--line-strong); background: var(--paper-2); color: var(--text-2); font-size: 0.8125rem; font-weight: 500; transition: background-color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
+.chip-list li:hover { background: var(--brand-100); border-color: var(--brand-700); color: var(--brand-700); transform: translateY(-1px); }
+.chip-list li:focus-visible { outline: 2px solid var(--brand-300); outline-offset: 2px; }
 .tech-note { margin-top: 20px; font-size: 0.8125rem; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .tech-note .ph-badge { flex: none; }
 
 @media (max-width: 999px) {
   .tech-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 767px) {
+  .tech-grid { grid-template-columns: 1fr; }
+  .tech-group { padding: clamp(16px, 3vw, 24px); }
 }
 @media (max-width: 599px) { .tech-grid { grid-template-columns: 1fr; } }
 
