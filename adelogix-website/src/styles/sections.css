@@ -367,7 +367,18 @@
    Technologies
    ========================================================================== */
 
-.tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--gap); }
+/* Centre the technology cards instead of left-packing them.
+   auto-fill used to create more tracks than cards (4 tracks for 3 cards at
+   1440px), so the row hugged the left and left dead space on the right.
+   Centring the grid items keeps the cards balanced at every width. */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  max-width: 1120px;
+  margin-inline: auto;
+  justify-content: center;
+}
 .tech-group { padding: clamp(20px, 3vw, 28px); border-radius: var(--r-lg); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 14px; align-content: start; position: relative; overflow: hidden; transition: box-shadow var(--t-base) var(--ease), transform var(--t-base) var(--ease); }
 .tech-group:hover { box-shadow: inset 0 0 0 1px var(--brand-200), var(--shadow-md); transform: translateY(-2px); }
 .surface-paper .tech-group { background: transparent; }
@@ -382,13 +393,12 @@
 .tech-note .ph-badge { flex: none; }
 
 @media (max-width: 999px) {
-  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
-  .tech-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: minmax(0, 1fr); }
   .tech-group { padding: clamp(16px, 3vw, 24px); }
 }
-@media (max-width: 599px) { .tech-grid { grid-template-columns: 1fr; } }
 
 /* ==========================================================================
    Why Adelogix
@@ -624,14 +634,18 @@
 .orbit--2 { inset: 14%; }
 .orbit--3 { inset: 28%; background: radial-gradient(circle, rgb(123 73 158 / 0.35), transparent 70%); border-color: rgb(167 146 216 / 0.3); }
 .orbit--1::after { content: ''; position: absolute; top: 12%; left: 12%; width: 10px; height: 10px; border-radius: 50%; background: var(--brand-300); box-shadow: 0 0 16px var(--brand-300); }
-.cta-panel__steps { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 28px; border-top: 1px solid var(--line-inverse); }
+/* The base reset ul[class] { padding: 0 } (0,1,1) outranks a lone class
+   (0,1,0), so the padding declared here never took effect and the steps sat
+   flush against the rule above them. .cta-panel .cta-panel__steps (0,2,0)
+   wins, and the gap now actually renders. */
+.cta-panel .cta-panel__steps { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: clamp(32px, 3vw, 44px); border-top: 1px solid var(--line-inverse); }
 .cta-panel__steps li { display: flex; gap: 14px; align-items: flex-start; color: var(--text-inverse-2); font-size: 0.875rem; }
 .cta-panel__steps .icon { color: var(--brand-300); margin-top: 2px; }
 .cta-panel__steps strong { display: block; color: #fff; font-weight: 600; font-size: 0.9375rem; }
 @media (max-width: 899px) {
   .cta-panel__copy, .cta-panel__visual { grid-column: 1 / -1; }
   .cta-panel__visual { display: none; }
-  .cta-panel__steps { grid-template-columns: 1fr; }
+  .cta-panel .cta-panel__steps { grid-template-columns: 1fr; }
 }
 
 /* ==========================================================================
@@ -641,84 +655,123 @@
 .site-footer { position: relative; overflow: hidden; padding-top: clamp(48px, 7vw, 88px); padding-bottom: 32px; }
 .footer-watermark { position: absolute; right: -10%; top: 40%; width: min(760px, 70vw); transform: translateY(-50%); opacity: 0.02; pointer-events: none; }
 .footer-inner { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 40px; }
-.footer-lead { grid-column: 1 / span 5; display: grid; gap: 16px; align-content: start; justify-items: start; }
+/* ---- Footer: intro + interactive map, then a four-column nav row ------- */
+.footer-inner { grid-template-areas: none; }
+.footer-intro {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  justify-items: start;
+}
 .footer-logo { height: 32px; width: auto; margin-bottom: 4px; }
-.footer-lead p { color: var(--text-inverse-2); font-size: 0.9375rem; max-width: 44ch; line-height: 1.6; }
-.footer-actions { grid-column: 1 / span 5; display: grid; gap: 12px; align-content: start; margin-top: 4px; }
+.footer-intro p { color: var(--text-inverse-2); font-size: 1rem; max-width: 46ch; line-height: 1.7; }
+.footer-actions { display: flex; flex-wrap: wrap; gap: 12px; align-content: start; margin-top: 6px; }
 .footer-actions .btn { display: inline-flex; align-items: center; gap: 8px; }
-.footer-cols { grid-column: 6 / span 7; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
-/* Location card fills the space under the lead copy so the footer has no dead zone. */
-.footer-location { grid-column: 1 / span 5; display: grid; gap: 12px; margin-top: 8px; }
-.footer-location .footer-map-link { display: block; }
-.footer-col { display: grid; gap: 12px; align-content: start; }
+
+/* Google Maps embed, opposite the introduction */
+.footer-map-embed {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+/* The address and map link render underneath the iframe, so the footer still
+   reads correctly if a browser or network blocks the third-party embed. */
+.footer-map-embed {
+  position: relative;
+  isolation: isolate;
+}
+.footer-map-placeholder {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: clamp(200px, 20vw, 280px);
+  z-index: -1;
+  display: grid;
+  gap: 10px;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 24px;
+  border-radius: var(--r-md);
+  background: rgb(255 255 255 / 0.04);
+  box-shadow: inset 0 0 0 1px var(--line-inverse);
+  color: var(--text-inverse-3);
+  font-size: 0.875rem;
+}
+.footer-map-placeholder .icon { color: var(--brand-300); opacity: 0.7; }
+.footer-map-embed iframe {
+  display: block;
+  width: 100%;
+  height: clamp(200px, 20vw, 280px);
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-inverse);
+}
+.footer-map-caption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--text-inverse-2);
+  text-decoration: none;
+  transition: color var(--t-fast) var(--ease);
+}
+.footer-map-caption__text { display: grid; gap: 1px; min-width: 0; }
+.footer-map-caption__text strong { color: #fff; font-weight: 500; font-size: 0.9375rem; }
+.footer-map-caption__text span { color: var(--text-inverse-3); font-size: 0.8125rem; }
+.footer-map-caption .icon { color: var(--brand-300); flex: none; }
+.footer-map-caption:hover { color: #fff; }
+.footer-map-caption:hover .footer-map-caption__text span { color: var(--brand-300); }
+
+/* Four equal footer columns */
+.footer-cols {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+  padding-top: 40px;
+  border-top: 1px solid var(--line-inverse);
+}
+.footer-col { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.footer-col-logo { height: 26px; width: auto; opacity: 0.9; margin-bottom: 2px; }
 .footer-col h2 { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-inverse-3); margin-bottom: 2px; }
 .footer-col ul { display: grid; gap: 8px; }
 .footer-col a, .footer-col li > span { display: inline-flex; align-items: center; gap: 8px; font-size: 0.9375rem; color: var(--text-inverse-2); text-decoration: none; transition: color var(--t-fast) var(--ease); }
 .footer-col a:hover { color: var(--brand-300); }
-.footer-col .icon { color: var(--brand-300); }
-.footer-contact li { display: flex; align-items: center; gap: 8px; }
-.footer-social { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 4px; border-top: 1px solid var(--line-inverse); padding-top: 20px; }
+.footer-col .icon { color: var(--brand-300); flex: none; }
+.footer-col-text { color: var(--text-inverse-2); font-size: 0.875rem; line-height: 1.6; max-width: 34ch; }
+.footer-contact li { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.footer-contact li a { min-width: 0; overflow-wrap: anywhere; }
+.footer-social { grid-column: 1 / -1; margin-top: 4px; border-top: 1px solid var(--line-inverse); padding-top: 20px; }
+.footer-social ul { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.footer-social a { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9375rem; color: var(--text-inverse-2); text-decoration: none; transition: color var(--t-fast) var(--ease); }
+.footer-social a:hover { color: var(--brand-300); }
 .footer-bottom { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 20px; padding: 16px 0 20px; border-top: 1px solid var(--line-inverse); font-size: 0.8125rem; color: var(--text-inverse-3); }
 .footer-bottom ul { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
 .footer-bottom a, .footer-bottom button { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; font-size: inherit; color: var(--text-inverse-2); text-decoration: none; }
 .footer-bottom a:hover, .footer-bottom button:hover { color: #fff; }
 
+/* Tablet: intro and map stack, columns go to a 2 x 2 grid */
 @media (max-width: 1099px) {
-  .footer-lead, .footer-actions { grid-column: 1 / -1; }
-  .footer-cols { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .footer-location { grid-column: 1 / -1; grid-row: auto; align-self: auto; }
-  .footer-location .footer-map-link { max-width: none; }
-}
-@media (max-width: 899px) {
-  .footer-cols { grid-template-columns: 1fr 1fr; }
-  .footer-col--services ul { grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
+  .footer-intro { grid-column: 1 / -1; }
+  .footer-map-embed { grid-column: 1 / -1; }
+  .footer-map-embed iframe, .footer-map-placeholder { height: clamp(220px, 34vw, 280px); }
+  .footer-cols { grid-template-columns: 1fr 1fr; row-gap: 36px; }
 }
 @media (max-width: 639px) {
-  .footer-cols { grid-template-columns: 1fr; row-gap: 28px; }
-  .footer-col--services { grid-column: 1 / -1; order: -1; }
+  .footer-inner { row-gap: 32px; }
+  .footer-cols { grid-template-columns: 1fr; row-gap: 28px; padding-top: 32px; }
   .footer-col--services ul { grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
+  .footer-col-text { max-width: none; }
+  .footer-map-embed iframe, .footer-map-placeholder { height: clamp(200px, 52vw, 250px); }
   .footer-social { flex-direction: column; align-items: flex-start; gap: 10px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
   .footer-bottom ul { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 
-/* Footer location map */
-.footer-map-link {
-  display: block;
-  text-decoration: none;
-  max-width: 420px;
-}
-.footer-map {
-  display: grid;
-  gap: 14px;
-  padding: 24px;
-  border-radius: var(--r-md);
-  background: rgb(255 255 255 / 0.04);
-  box-shadow: inset 0 0 0 1px var(--line-inverse);
-  transition: box-shadow var(--t-base) var(--ease), transform var(--t-base) var(--ease);
-  color: var(--text-inverse-2);
-}
-.footer-map-link:hover .footer-map {
-  box-shadow: inset 0 0 0 1px var(--brand-300);
-  transform: translateY(-3px);
-}
-.footer-map .icon-badge {
-  background: var(--brand-100);
-  color: var(--brand-700);
-  box-shadow: none;
-}
-.footer-map-text {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-inverse);
-  margin-top: 4px;
-}
-.footer-map-text .icon {
-  color: var(--brand-300);
-}
 
 /* ==========================================================================
    Inner page heroes
