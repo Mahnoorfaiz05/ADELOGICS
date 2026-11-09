@@ -122,36 +122,56 @@ function footer(site) {
     config.bookingUrl && `<li><a href="${attr(config.bookingUrl)}" target="_blank" rel="noopener" data-track="booking_click">${svgIcon('calendar', 18)}Book a call</a></li>`,
   ].filter(Boolean);
   const year = new Date().getFullYear();
+  // Interactive map for the confirmed business address. Uses the keyless
+  // Google Maps embed URL built from the same `contact.location` value that
+  // drives every other location link, so no new location is introduced.
+  const mapEmbed = c.location
+    ? `https://www.google.com/maps?q=${encodeURIComponent(c.location)}&output=embed&hl=en`
+    : '';
+  const socialList = socials.map(([k, v]) => `<li><a href="${attr(v)}" target="_blank" rel="noopener">${esc(k)}</a></li>`).join('');
   return `<footer class="site-footer surface-ink" data-nav-dark>
   <img class="footer-watermark" src="${u('/assets/brand/adelogix-mark-white.png')}" alt="" width="514" height="439" loading="lazy">
   <div class="container footer-inner">
-    <div class="footer-lead">
+    <div class="footer-intro">
       <img class="footer-logo" src="${u('/assets/brand/adelogix-logo-white.png')}" alt="Adelogix" width="585" height="133" loading="lazy">
       <p>Adelogix designs and builds web platforms, mobile apps and custom business software for startups, growing companies and established teams.</p>
+      <div class="footer-actions">
+        <a class="btn btn--light" href="${u('/contact/')}" data-track="cta_footer">Discuss your project ${icon.arrow}</a>
+      </div>
     </div>
-    <div class="footer-actions">
-      <a class="btn btn--light" href="${u('/contact/')}" data-track="cta_footer">Discuss your project ${icon.arrow}</a>
-    </div>
-    <div class="footer-col footer-col--location footer-location">
-      <h2>Our Location</h2>
-      <a href="${attr(mapsUrl)}" target="_blank" rel="noopener" class="footer-map-link">
-        <div class="footer-map">
-          <span class="icon-badge icon-badge--soft">${svgIcon('pin', 20)}</span>
-          <span>${esc(c.location)}</span>
-          <span class="footer-map-text">Open in Google Maps ${svgIcon('chevronRight', 16)}</span>
-        </div>
+    ${mapEmbed
+      ? `<div class="footer-map-embed">
+      <div class="footer-map-placeholder" aria-hidden="true">
+        ${svgIcon('pin', 22)}
+        <span>${esc(c.location)}</span>
+      </div>
+      <iframe
+        src="${attr(mapEmbed)}"
+        title="Adelogix office location: ${attr(c.location)}"
+        width="600" height="360"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <a class="footer-map-caption" href="${attr(mapsUrl)}" target="_blank" rel="noopener">
+        ${svgIcon('pin', 16)}<span class="footer-map-caption__text"><strong>${esc(c.location)}</strong><span>Open in Google Maps</span></span>${svgIcon('chevronRight', 16)}
       </a>
-    </div>
+    </div>`
+      : ''}
     <div class="footer-cols">
-      <div class="footer-col">
+      <div class="footer-col footer-col--brand">
         <h2>Company</h2>
+        <img class="footer-col-logo" src="${u('/assets/brand/adelogix-logo-white.png')}" alt="Adelogix" width="585" height="133" loading="lazy">
+        <p class="footer-col-text">${esc(config.legalName)} designs and builds web platforms, mobile apps and custom business software from Bahawalpur, Pakistan.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Quick links</h2>
         <ul>${NAV.map((n) => `<li><a href="${u(n.href)}">${n.label}</a></li>`).join('')}</ul>
       </div>
       <div class="footer-col footer-col--services">
         <h2>Services</h2>
         <ul>${services.map((s) => `<li><a href="${u(`/services/${s.slug}/`)}">${esc(s.name)}</a></li>`).join('')}</ul>
       </div>
-      <div class="footer-col">
+      <div class="footer-col footer-col--contact">
         <h2>Get in touch</h2>
         <ul class="footer-contact">
           ${contactItems.join('')}
@@ -160,7 +180,7 @@ function footer(site) {
         </ul>
       </div>
     </div>
-    ${socials.length ? `<div class="footer-social">${socials.map(([k, v]) => `<a href="${attr(v)}" target="_blank" rel="noopener">${k}</a>`).join('')}</div>` : ''}
+    ${socials.length ? `<div class="footer-social"><ul>${socialList}</ul></div>` : ''}
     <div class="footer-bottom">
       <span>&copy; ${year} ${esc(config.legalName)}. All rights reserved.</span>
       <ul>
