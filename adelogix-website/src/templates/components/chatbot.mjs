@@ -31,7 +31,7 @@ export function renderChatbot(knowledge) {
       </div>
       <div class="chatbot__header-actions">
         <button class="chatbot__btn" type="button" data-chatbot-new aria-label="New conversation" title="New conversation">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16s1-3 4-3 5 2 8 2 8-6 2-6 2 2 2-4 0-6-4-6-2-4"></path><circle cx="5" cy="19" r="1"></circle></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a9 9 0 1 1-2.64-6.36"></path><path d="M21 3v6h-6"></path></svg>
         </button>
         <button class="chatbot__btn chatbot__btn--close" type="button" data-chatbot-toggle aria-label="Close chat" title="Close">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>

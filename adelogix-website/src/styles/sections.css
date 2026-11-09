@@ -642,6 +642,9 @@
 .footer-actions { grid-column: 1 / span 5; display: grid; gap: 12px; align-content: start; margin-top: 4px; }
 .footer-actions .btn { display: inline-flex; align-items: center; gap: 8px; }
 .footer-cols { grid-column: 6 / span 7; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+/* Location card fills the space under the lead copy so the footer has no dead zone. */
+.footer-location { grid-column: 1 / span 5; display: grid; gap: 12px; margin-top: 8px; }
+.footer-location .footer-map-link { display: block; }
 .footer-col { display: grid; gap: 12px; align-content: start; }
 .footer-col h2 { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-inverse-3); margin-bottom: 2px; }
 .footer-col ul { display: grid; gap: 8px; }
@@ -656,18 +659,19 @@
 .footer-bottom a:hover, .footer-bottom button:hover { color: #fff; }
 
 @media (max-width: 1099px) {
-  .footer-lead, .footer-actions, .footer-cols { grid-column: 1 / -1; }
-  .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-lead, .footer-actions { grid-column: 1 / -1; }
+  .footer-cols { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-location { grid-column: 1 / -1; grid-row: auto; align-self: auto; }
+  .footer-location .footer-map-link { max-width: none; }
 }
 @media (max-width: 899px) {
   .footer-cols { grid-template-columns: 1fr 1fr; }
-  .footer-col--location { grid-column: 1 / -1; }
+  .footer-col--services ul { grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
 }
 @media (max-width: 639px) {
   .footer-cols { grid-template-columns: 1fr; row-gap: 28px; }
   .footer-col--services { grid-column: 1 / -1; order: -1; }
   .footer-col--services ul { grid-template-columns: 1fr 1fr; column-gap: var(--gap); }
-  .footer-col--location { grid-column: 1 / -1; }
   .footer-social { flex-direction: column; align-items: flex-start; gap: 10px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
   .footer-bottom ul { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -677,6 +681,7 @@
 .footer-map-link {
   display: block;
   text-decoration: none;
+  max-width: 420px;
 }
 .footer-map {
   display: grid;

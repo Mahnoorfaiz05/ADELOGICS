@@ -61,7 +61,7 @@ export function heroMedia(site) {
     return `<div class="hero-media hero-media--diagram">${systemMap()}</div>`;
   }
   return `<div class="hero-background" data-hero-media>
-    <video class="hero-background-video" muted loop playsinline preload="auto" poster="${u(m.poster)}" aria-label="${esc(m.label || 'Hero background video')}">
+    <video class="hero-background-video" data-hero-video autoplay muted loop playsinline preload="metadata" poster="${u(m.poster)}" aria-hidden="true" tabindex="-1">
       <source src="${u(m.src)}" type="video/mp4">
     </video>
     <div class="hero-background-overlay" aria-hidden="true"></div>
