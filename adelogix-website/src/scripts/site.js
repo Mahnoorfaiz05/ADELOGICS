@@ -53,6 +53,43 @@
     if (reduceMotion && svg.pauseAnimations) svg.pauseAnimations();
   });
 
+  /* ------------------------------------------- Our Work constellation tilt */
+  // A small pointer-driven tilt gives the cluster depth. Pointer-only, never
+  // required for navigation, and switched off entirely for reduced motion or
+  // touch-first devices where it would just fight the scroll.
+  (function () {
+    var stage = document.querySelector('[data-work-hero]');
+    var tilt = stage && stage.querySelector('[data-work-tilt]');
+    if (!tilt || reduceMotion) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var frame = 0;
+    var MAX = 9; // degrees — deliberately subtle
+    function set(rx, ry) {
+      tilt.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+    }
+    function onMove(e) {
+      if (frame) return;
+      frame = window.requestAnimationFrame(function () {
+        frame = 0;
+        var r = tilt.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        set((-py * MAX).toFixed(2), (px * MAX).toFixed(2));
+      });
+    }
+    function reset() {
+      if (frame) { window.cancelAnimationFrame(frame); frame = 0; }
+      set(0, 0);
+    }
+    stage.addEventListener('pointermove', onMove);
+    stage.addEventListener('pointerleave', reset);
+    stage.addEventListener('focusout', function (e) {
+      if (!stage.contains(e.relatedTarget)) reset();
+    });
+  })();
+
   /* ------------------------------------------------- Header theme */
   // The header switches between dark and light glass depending on the
   // section underneath it. Dark sections carry [data-nav-dark].
