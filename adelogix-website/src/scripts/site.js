@@ -100,7 +100,19 @@
     if (toggleBtn) toggleBtn.addEventListener('click', function () {
       if (video.paused) { userPaused = false; tryPlay(); } else { userPaused = true; video.pause(); }
     });
-    if (reduceMotion || saveData) setState(true);
+    if (reduceMotion || saveData) {
+      // The markup ships autoplay so the film starts for everyone else; these
+      // visitors opted out, so stop it and release the download. The poster
+      // image stays visible in place of the film.
+      video.pause();
+      video.removeAttribute('autoplay');
+      video.preload = 'none';
+      Array.prototype.forEach.call(video.querySelectorAll('source'), function (s) {
+        s.removeAttribute('src');
+      });
+      if (video.load) video.load();
+      setState(true);
+    }
     else if ('IntersectionObserver' in window) {
       // Play only while visible, to save battery and bandwidth.
       new IntersectionObserver(function (entries) {

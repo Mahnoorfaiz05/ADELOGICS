@@ -132,6 +132,16 @@ function footer(site) {
     <div class="footer-actions">
       <a class="btn btn--light" href="${u('/contact/')}" data-track="cta_footer">Discuss your project ${icon.arrow}</a>
     </div>
+    <div class="footer-col footer-col--location footer-location">
+      <h2>Our Location</h2>
+      <a href="${attr(mapsUrl)}" target="_blank" rel="noopener" class="footer-map-link">
+        <div class="footer-map">
+          <span class="icon-badge icon-badge--soft">${svgIcon('pin', 20)}</span>
+          <span>${esc(c.location)}</span>
+          <span class="footer-map-text">Open in Google Maps ${svgIcon('chevronRight', 16)}</span>
+        </div>
+      </a>
+    </div>
     <div class="footer-cols">
       <div class="footer-col">
         <h2>Company</h2>
@@ -148,16 +158,6 @@ function footer(site) {
           <li><a href="${u('/contact/#form')}">${svgIcon('doc', 18)}Send an enquiry</a></li>
           ${site.review && !c.email ? '<li><span class="ph-badge">Email, phone and location needed</span></li>' : ''}
         </ul>
-      </div>
-      <div class="footer-col footer-col--location">
-        <h2>Our Location</h2>
-        <a href="${attr(mapsUrl)}" target="_blank" rel="noopener" class="footer-map-link">
-          <div class="footer-map">
-            <span class="icon-badge icon-badge--soft">${svgIcon('pin', 20)}</span>
-            <span>${esc(c.location)}</span>
-            <span class="footer-map-text">Open in Google Maps ${svgIcon('chevronRight', 16)}</span>
-          </div>
-        </a>
       </div>
     </div>
     ${socials.length ? `<div class="footer-social">${socials.map(([k, v]) => `<a href="${attr(v)}" target="_blank" rel="noopener">${k}</a>`).join('')}</div>` : ''}
